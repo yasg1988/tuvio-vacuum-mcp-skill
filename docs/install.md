@@ -19,7 +19,7 @@ pip install -r requirements.txt
 
 ## 3. Проверка локального хаба
 
-Перед запуском MCP убедитесь, что хаб отвечает:
+Перед запуском MCP запустите встроенный минимальный хаб по инструкции [minimal-hub.md](minimal-hub.md) или свой совместимый хаб. Затем убедитесь, что он отвечает:
 
 ```powershell
 Invoke-WebRequest -UseBasicParsing http://127.0.0.1:8790/api/devices
@@ -31,7 +31,7 @@ Invoke-WebRequest -UseBasicParsing http://127.0.0.1:8790/api/devices
 $env:VACUUM_HUB_URL = "http://127.0.0.1:8790"
 ```
 
-Хаб должен поддерживать API из [hub-api.md](hub-api.md). Без такого хаба MCP-сервер запустится, но команды будут возвращать ошибку подключения.
+Хаб должен поддерживать API из [hub-api.md](hub-api.md). Встроенный `hub/minimal_hub.py` уже поддерживает этот API. Без хаба MCP-сервер запустится, но команды будут возвращать ошибку подключения.
 
 ## 4. Подключение MCP в Codex
 
