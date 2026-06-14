@@ -1,0 +1,10 @@
+# Пример секции для C:\Users\<USER>\.codex\config.toml
+# Замените путь к vacuum_mcp_server.py на свой.
+
+[mcp_servers.tuvio-vacuum]
+command = "python"
+args = ["D:\\wi fi detect\\tuvio-vacuum-mcp-skill\\mcp_server\\vacuum_mcp_server.py"]
+startup_timeout_ms = 20000
+
+[mcp_servers.tuvio-vacuum.env]
+VACUUM_HUB_URL = "http://127.0.0.1:8790"

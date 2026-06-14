@@ -1,0 +1,3 @@
+display_name: Tuvio Vacuum Control
+short_description: Управление Tuvio/Tuya роботом-пылесосом через локальный хаб
+default_prompt: Управь роботом-пылесосом Tuvio
