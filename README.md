@@ -32,6 +32,19 @@ pip install -r requirements.txt
 5. Скопируйте `skills/tuvio-vacuum-control` в `C:\Users\<USER>\.codex\skills`.
 6. Перезапустите Codex.
 
+## Что нужно новому владельцу Tuvio TR07MGBW
+
+Этот репозиторий - не полный Tuya-хаб. Он содержит MCP-сервер и Codex skill, которые управляют пылесосом через уже настроенный локальный HTTP API.
+
+Для рабочего запуска нужны:
+
+- пылесос, добавленный в Smart Life / Tuya Smart / Tuya Home или совместимое OEM-приложение;
+- `device_id` и актуальный `local_key`;
+- локальный хаб с API, описанным в [docs/hub-api.md](docs/hub-api.md);
+- Python 3.10+ и доступ Codex к MCP-серверу.
+
+Если после удаления или повторной привязки пылесоса команды перестали работать с ошибкой вида `Check device key or version`, получите новый `local_key` и обновите конфиг хаба. После перепривязки Tuya часто меняет локальный ключ.
+
 ## Команды MCP
 
 - `vacuum_status`

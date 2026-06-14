@@ -31,6 +31,8 @@ Invoke-WebRequest -UseBasicParsing http://127.0.0.1:8790/api/devices
 $env:VACUUM_HUB_URL = "http://127.0.0.1:8790"
 ```
 
+Хаб должен поддерживать API из [hub-api.md](hub-api.md). Без такого хаба MCP-сервер запустится, но команды будут возвращать ошибку подключения.
+
 ## 4. Подключение MCP в Codex
 
 Откройте файл:
@@ -75,3 +77,13 @@ C:\Users\<USER>\.codex\skills\tuvio-vacuum-control
 поставь мощность тихо
 включи голос у робота
 ```
+
+## 6. Быстрая проверка
+
+После перезапуска Codex спросите:
+
+```text
+проверь статус пылесоса
+```
+
+Если статус не читается, откройте [troubleshooting.md](troubleshooting.md).
