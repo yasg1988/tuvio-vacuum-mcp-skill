@@ -13,6 +13,3 @@ tuya_*secret*.json
 tuya_auth_qr*.json
 tuya_auth_qr*.png
 *local_key*
-yandex_station_mcp/.env
-yandex_station_mcp/yandex_tokens.json
-yandex_station_mcp/qr_session.json
