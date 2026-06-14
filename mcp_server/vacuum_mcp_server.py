@@ -113,9 +113,9 @@ def request_json(path: str, method: str = "GET", payload: dict[str, Any] | None 
             return json.loads(response.read().decode("utf-8"))
     except urllib.error.HTTPError as exc:
         body = exc.read().decode("utf-8", errors="replace")
-        raise RuntimeError(f"hub returned HTTP {exc.code}: {body}") from exc
+        raise RuntimeError(f"локальный хаб вернул HTTP {exc.code}: {body}") from exc
     except urllib.error.URLError as exc:
-        raise RuntimeError(f"local hub is unavailable at {HUB_URL}: {exc.reason}") from exc
+        raise RuntimeError(f"локальный хаб недоступен по адресу {HUB_URL}: {exc.reason}") from exc
 
 
 def russian(value: Any) -> Any:
@@ -150,10 +150,10 @@ def compact_status(payload: dict[str, Any]) -> dict[str, Any]:
 
 def send(command: str) -> dict[str, Any]:
     if command not in COMMANDS:
-        raise ValueError(f"unknown command: {command}")
+        raise ValueError(f"неизвестная команда: {command}")
     payload = request_json("/api/tuya/command", "POST", {"command": command})
     if not payload.get("ok"):
-        raise RuntimeError(payload.get("error") or "command failed")
+        raise RuntimeError(payload.get("error") or "команда не выполнена")
     status = payload.get("status") or {}
     return {"ok": True, "command": command, "status": compact_status({"tuya_live": status})}
 
@@ -200,7 +200,7 @@ def vacuum_set_mode(mode: str) -> dict[str, Any]:
     """Установить режим: smart/auto, wall_follow/walls, spiral/spot, standby, home/chargego."""
     command = MODE_COMMANDS.get(mode)
     if not command:
-        raise ValueError(f"unsupported mode: {mode}")
+        raise ValueError(f"неподдерживаемый режим: {mode}")
     return send(command)
 
 
@@ -209,7 +209,7 @@ def vacuum_set_suction(level: str) -> dict[str, Any]:
     """Установить мощность всасывания: quiet, normal, strong."""
     command = SUCTION_COMMANDS.get(level)
     if not command:
-        raise ValueError(f"unsupported suction level: {level}")
+        raise ValueError(f"неподдерживаемый уровень мощности: {level}")
     return send(command)
 
 
@@ -218,7 +218,7 @@ def vacuum_set_water(level: str) -> dict[str, Any]:
     """Установить подачу воды для влажной уборки: low, middle/medium, high."""
     command = WATER_COMMANDS.get(level)
     if not command:
-        raise ValueError(f"unsupported water level: {level}")
+        raise ValueError(f"неподдерживаемый уровень подачи воды: {level}")
     return send(command)
 
 
@@ -227,7 +227,7 @@ def vacuum_drive(direction: str) -> dict[str, Any]:
     """Ручное движение: forward, backward, left, right, stop."""
     command = DIRECTION_COMMANDS.get(direction)
     if not command:
-        raise ValueError(f"unsupported direction: {direction}")
+        raise ValueError(f"неподдерживаемое направление: {direction}")
     return send(command)
 
 
@@ -247,12 +247,12 @@ def vacuum_set_power(enabled: bool) -> dict[str, Any]:
 def vacuum_reset_consumable(consumable: str, confirm: bool = False) -> dict[str, Any]:
     """Сбросить счетчик фильтра или боковой щетки. Требуется confirm=true."""
     if not confirm:
-        raise ValueError("reset requires confirm=true")
+        raise ValueError("для сброса счетчика требуется confirm=true")
     if consumable == "filter":
         return send("reset_filter")
     if consumable in {"edge_brush", "brush"}:
         return send("reset_edge_brush")
-    raise ValueError(f"unsupported consumable: {consumable}")
+    raise ValueError(f"неподдерживаемый расходник: {consumable}")
 
 
 if __name__ == "__main__":
